@@ -188,7 +188,7 @@ def download_song(file_name, content):
 
 def mycb(total, recvd, ratio, rate, eta):
     #log.info("Dl: " + str(recvd), str(int(ratio)*100)+"%", "ETA: "+eta)
-	log.info("Dl: " + str(recvd) + "  " + str(float(ratio)*100)+"%" + "  " + "ETA: "+str(eta))
+	log.info(str(round(float(ratio)*100,2))+"%" + "  " + "Bytes: " + str(recvd))
 	#print("Dl: " + str(recvd), str(int(ratio)*100)+"%", "ETA: "+str(eta))
 
 def generate_search_url(query):
