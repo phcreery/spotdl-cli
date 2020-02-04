@@ -12,7 +12,6 @@ class App(npyscreen.StandardApp):	#StandardApp, NPSAppManaged, NPSApp
 
 	passinfo = {}
 	#curses.use_default_colors()
-	
 
 	def onStart(self):
 		npyscreen.setTheme(MyTheme) 
