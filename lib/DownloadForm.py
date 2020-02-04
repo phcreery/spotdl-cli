@@ -46,7 +46,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			name			 = "CONSOLE",
 			relx			 = 2,
 			rely			 = column_height - int(column_height/2),
-			max_height		 = int(column_height/2),
+			max_height		 = column_height - int(column_height/2),
 			#value			 = "asdf",
 			editable		 = False,
 			#footer			 = "Ctrl+D to download"
@@ -57,16 +57,16 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		#	self.queue = []
 		self.queue.append(self.parentApp.passinfo)
 		self.Queue_widget.assignvalues(self.queue)
-		self.event_update_download_form("event")
+		#self.event_update_download_form("event")
 
 	def event_start_download(self, event):
 		#self.DetailView_widget.name = self.parentApp.passinfo['name']
 		self.DetailView_widget.footer = self.parentApp.passinfo['name'] + " | Running"
 		
-		#self.executecommand = "su - peyton -c 'spotdl --song 'https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' " # + self.parentApp.passinfo['share'] 
-		self.executecommand = "python3 spotdlRunner.py --song 'https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' "
+		#self.executecommand = "python3 spotdlRunner.py --song 'https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' "
+		self.executecommand = "python3 spotdlRunner.py --song " + self.parentApp.passinfo['share'] + " --overwrite force --trim-silence"
 		#self.executecommand = "spotdl --song https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV"
-		#self.executecommand = "sudo ls -la"
+		#self.executecommand = "sudo ls -la npyscreen >&2 "
 		
 		self.process = self.run_command(self.executecommand)
 		self.DetailView_widget.assignvalues = self.executecommand + "\n"
@@ -75,6 +75,8 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 	def event_update_download_form(self, event):
 		self.Queue_widget.update()
 		self.DetailView_widget.update()
+		self.Queue_widget.display()
+		self.DetailView_widget.display()
 		self.display()
 
 	def ev_goback(self, event):
@@ -114,6 +116,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 
 
 		#self.event_update_download_form("event")
+		self.Queue_widget.update()
 		self.DetailView_widget.update()
 
 

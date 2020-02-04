@@ -21,7 +21,7 @@ def main():
 	#mytracks()
 
 	"""
-	cmd = run_command("spotdl --song 'this feeling'")
+	cmd = run_command("python3 spotdlRunner.py --song 'https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' --overwrite force --trim-silence")
 	while True:	
 		output, rc = command_output(cmd)
 		if output == None:
@@ -29,6 +29,7 @@ def main():
 		else:
 			print(output, rc)
 	"""
+
 	#print(os.getcwd())
 	#download_spotify_track('this feeling')
 
@@ -37,11 +38,12 @@ def main():
 
 
 def run_command(command):
-	process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, encoding='utf8')
+	#process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, encoding='utf8')
+	process = subprocess.Popen(shlex.split(command), stderr=subprocess.PIPE, encoding='utf8')
 	return process
 
 def command_output(process):
-	output = process.stdout.readline()
+	output = process.stderr.readline() # process.stdout.readline()
 	if output == '' and process.poll() is not None:
 		return None
 	if output:

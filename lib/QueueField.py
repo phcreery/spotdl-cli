@@ -4,10 +4,10 @@ import curses
 
 class QueueList(npyscreen.BoxTitle):
 	#_contained_widget = npyscreen.BoxTitle
-	def when_value_edited(self):
+	#def when_value_edited(self):
 	#def when_check_value_changed(self):
 		# event to change message dialog box
-		self.parent.parentApp.queue_event(npyscreen.Event(self.callback))
+	#	self.parent.parentApp.queue_event(npyscreen.Event(self.callback))
 
 	def setEditCallback(self, value):
 		self.callback = value

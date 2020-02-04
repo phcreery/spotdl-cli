@@ -173,19 +173,23 @@ def download_song(file_name, content):
     if extension in (".webm", ".m4a"):
         link = content.getbestaudio(preftype=extension[1:])
     else:
-        log.debug("No audio streams available for {} type".format(extension))
+        log.info("No audio streams available for {} type".format(extension))
         return False
 
     if link:
-        log.debug("Downloading from URL: " + link.url)
+        log.info("Downloading from URL: " + link.url)
         filepath = os.path.join(const.args.folder, file_name)
-        log.debug("Saving to: " + filepath)
-        link.download(filepath=filepath)
+        log.info("Saving to: " + filepath)
+        link.download(filepath=filepath, quiet=True, callback=mycb)
         return True
     else:
-        log.debug("No audio streams available")
+        log.info("No audio streams available")
         return False
 
+def mycb(total, recvd, ratio, rate, eta):
+    #log.info("Dl: " + str(recvd), str(int(ratio)*100)+"%", "ETA: "+eta)
+	log.info("Dl: " + str(recvd) + "  " + str(float(ratio)*100)+"%" + "  " + "ETA: "+str(eta))
+	#print("Dl: " + str(recvd), str(int(ratio)*100)+"%", "ETA: "+str(eta))
 
 def generate_search_url(query):
     """ Generate YouTube search URL for the given song. """
