@@ -7,9 +7,7 @@ import shlex
 
 from spotdl.spotdl import dlr
 
-
 #npyscreen.disableColor()
-
 
 def main():
 	#results = sp.searchtrack("Roses SoMo")
