@@ -63,7 +63,8 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		#self.DetailView_widget.name = self.parentApp.passinfo['name']
 		self.DetailView_widget.footer = self.parentApp.passinfo['name'] + " | Running"
 		
-		self.executecommand = "su - peyton -c 'spotdl --song https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' " # + self.parentApp.passinfo['share'] 
+		#self.executecommand = "su - peyton -c 'spotdl --song 'https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' " # + self.parentApp.passinfo['share'] 
+		self.executecommand = "python3 spotdlRunner.py --song 'https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' "
 		#self.executecommand = "spotdl --song https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV"
 		#self.executecommand = "sudo ls -la"
 		
@@ -80,13 +81,14 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		self.parentApp.switchFormPrevious()
 
 	def run_command(self, command):
-		process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf8')
+		process = subprocess.Popen(shlex.split(command), stderr=subprocess.PIPE, encoding='utf8')
+		# add stdout=subprocess.PIPE, for other commands
 		#process = str(a) + str(b)
 		#self.executedcommand = command
 		return process
 
 	def command_output(self, process):
-		output = process.stdout.readline() + process.stderr.readline()
+		output = process.stderr.readline() # process.stdout.readline()
 		#output = process.communicate()
 		#output = process.stdout
 		if output == '' and process.poll() is not None:
