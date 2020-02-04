@@ -74,17 +74,9 @@ def main():
         log.exception(e)
         sys.exit(3)
 
-def dlr(track):
-    print("a")
-    #const.args = handle.get_arguments()
+def dlr():
+	main()
 
-    #internals.filter_path(const.args.folder)
-    #youtube_tools.set_api_key()
-
-    #logzero.setup_default_logger(formatter=const._formatter, level=const.args.log_level)
-
-    track_dl = downloader.Downloader(raw_song=track)
-    track_dl.download_single()
 
 if __name__ == "__main__":
     main()

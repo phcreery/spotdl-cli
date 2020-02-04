@@ -1,11 +1,14 @@
 from lib.ui import App
 import lib.spotq as sp
 import pprint
+from lib.spotq import download_spotify_track
+
 
 import subprocess
 import shlex
+import os
 
-from spotdl.spotdl import dlr
+#from spotdl.spotdl import dlr
 
 #npyscreen.disableColor()
 
@@ -26,11 +29,11 @@ def main():
 		else:
 			print(output, rc)
 	"""
+	#print(os.getcwd())
+	#download_spotify_track('this feeling')
 
-	dlr('this feeling')
-
-	#app = App()
-	#app.run()
+	app = App()
+	app.run()
 
 
 def run_command(command):

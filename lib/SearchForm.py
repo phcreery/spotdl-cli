@@ -54,7 +54,7 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 
 		self.DetailView_widget = self.add(
 			DetailView,
-			name			 = "INFO",
+			#name			 = "INFO",
 			#relx			 = 2,
 			rely			 = column_height+4,
 			max_height		 = 6,

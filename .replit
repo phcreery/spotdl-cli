@@ -1,2 +1,3 @@
 language = "python3"
-run = "python main.py"
+run = "python3 main.py"
+#run = "python3 spotdlRunner.py -s 'this feeling' --overwrite force --trim-silence -f /home/runner/spotdl-cli/queue"

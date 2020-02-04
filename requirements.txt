@@ -12,3 +12,6 @@ logzero
 # spotdl
 spotdl
 
+pyyaml
+unicode-slugify
+youtube-dl
