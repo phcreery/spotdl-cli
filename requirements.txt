@@ -1,0 +1,14 @@
+# spotipy
+spotipy
+lyricwikia
+mutagen
+pafy
+slugify
+titlecase
+appdirs
+bs4
+logzero
+
+# spotdl
+spotdl
+
