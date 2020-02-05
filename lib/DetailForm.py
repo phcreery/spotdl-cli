@@ -19,7 +19,7 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 			curses.ascii.ctrl(curses.ascii.BS): self.exit_func,
 			"b": self.ev_goback,
 			"d": self.ev_download_song,
-			#"^Q": self.ev_add_queue,
+			"q": self.ev_add_queue,
 		}
 		self.add_handlers(new_handlers)
 
@@ -97,10 +97,12 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 	def ev_add_queue(self, event):
 		#self.parentApp.passinfo = self.TrackList_widget.getSelectedSongInfo()
 		self.parentApp.queue_event(npyscreen.Event("event_add_queue"))
+		#update(clear=True)
+		#self.event_update_detail_form("event")
 
 	def goto_download(self):
 		#self.parentApp.passinfo = self.TrackList_widget.getSelectedSongInfo()
-		self.parentApp.queue_event(npyscreen.Event("event_start_download"))
+		#self.parentApp.queue_event(npyscreen.Event("event_start_download"))
 		self.parentApp.setNextForm("DOWN")
 		#self.parentApp.setNextFormPrevious()
 		self.parentApp.switchForm("DOWN")	

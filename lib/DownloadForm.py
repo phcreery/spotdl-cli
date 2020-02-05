@@ -55,6 +55,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			#footer			 = "Ctrl+D to download"
 		)
 		#self.keypress_timeout = 10
+		self.isdownloading = False
 		
 	def event_add_queue(self, event):
 		self.Console_widget.log("event_add_queue called")
@@ -62,12 +63,17 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		self.Queue_widget.assignvalues(self.queue)
 		#npyscreen.notify("Queued", title='Popup Title')
 		#npyscreen.notify_confirm("Queued", title='Popup Title', form_color='STANDOUT', editw = 5)
-		notify("Queued", title='Popup Title')
-		time.sleep(1) # needed to have it show up for a visible amount of time
+		notify("Queued", title='Notice')
+		time.sleep(0.5) # needed to have it show up for a visible amount of time
+		npyscreen.blank_terminal()	# needed to cleat notify form residue
 		#self.event_update_download_form("event")
 
 	def event_start_download(self, event):
 		self.Console_widget.log("event_start_download called")
+		self.isdownloading = True
+		self.current_song = self.queue[0]
+
+	def download_handler(self)
 		self.Console_widget.log("Using: " + str(self.Queue_widget.values))
 		#self.Console_widget.name = self.parentApp.passinfo['name']
 		self.Console_widget.footer = self.parentApp.passinfo['name'] + " | Running"
@@ -84,6 +90,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 
 	def event_update_download_form(self, event):
 		#self.Console_widget.log("Updating Form...")
+		self.Queue_widget.assignvalues(self.queue)
 		self.Queue_widget.update()
 		self.Console_widget.update()
 		#self.Queue_widget.display()
@@ -117,15 +124,13 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 
 	def while_waiting(self):
 		#self.Console_widget.log("WhileWait Loop")
-		if hasattr(self, 'process'):
+		#f hasattr(self, 'process'):
+		if self.isdownloading == True:
 			results = self.command_output(self.process)
 			if results != None:
 				self.Console_widget.log(results)
 			else:
 				self.command_done()
-		#else:
-		#	self.event_start_download("a")
-
 
 		#self.event_update_download_form("event")
 		#self.Queue_widget.update()

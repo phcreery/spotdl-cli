@@ -29,6 +29,13 @@ def notify(message, title="Message", form_color='STANDOUT',
 	mlw.values = message
 	F.display()
 
+def notify_wait(*args, **keywords):
+	notify(*args, **keywords)
+	curses.napms(3000)
+	curses.flushinp()
+
+
+
 def _prepare_message(message):
 	if isinstance(message, list) or isinstance(message, tuple):
 		return "\n".join([ s.rstrip() for s in message])

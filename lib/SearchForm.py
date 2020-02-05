@@ -71,18 +71,18 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 	def event_value_edited(self, event):
 		if "\n" in self.SearchBox_widget.value:
 			self.SearchBox_widget.value = self.SearchBox_widget.value.replace('\n', '').replace('\r', '')
-			#self.TrackList_widget.value = 0
+			self.TrackList_widget.value = 0
 			self.TrackList_widget.values = []
 			self.update_results()
 			
-		#self.TrackList_widget.when_value_edited()
+		self.TrackList_widget.when_value_edited()
 
 	def update_results(self):
 		info = sp.searchtrack(self.SearchBox_widget.value)
 		self.TrackList_widget.generateTrackList(info)
 		self.TrackList_widget.update(clear=True)
 		#self.DetailView_widget.update()
-		self.display()
+		#self.display()
 		#self.TrackList_widget.update(clear=True)
 		
 	def event_song_select(self, event):
