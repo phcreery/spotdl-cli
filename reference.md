@@ -17,7 +17,7 @@ spotdl
 
 # MODs
 
-## npyscreen:
+## npyscreen/
 
 ### wgwidget.py:
 
@@ -48,14 +48,14 @@ class TitlelessForm(FormBaseNewExpanded):
 This creates a new from type without a border and title
 
 
-### __init__.py
+### \__init\__.py
 Line: 14 modify
 ```
 from   .fmForm                  import FormBaseNew, Form, TitleForm, TitleFooterForm, SplitForm, FormExpanded, FormBaseNewExpanded, blank_terminal, TitlelessForm
 ```
 Incluse my new form type
 
-### wgtextbox:
+### wgtextbox.py:
 
 Line: 250 from
 ```
@@ -84,6 +84,25 @@ to
 Both of these allow for the list & text fields to be full width, leaving only 1 space to the right and 1 to the left
 
 
+
+
+## spotdl/
+
+### youtube_tools.py
+
+Line: 183 (in download_song()) modify
+```
+link.download(filepath=filepath, quiet=True, callback=mycb)
+```
+
+After download function, add
+```
+def mycb(total, recvd, ratio, rate, eta):
+    #log.info("Dl: " + str(recvd), str(int(ratio)*100)+"%", "ETA: "+eta)
+	log.info(str(round(float(ratio)*100,2))+"%" + "  " + "Bytes: " + str(recvd))
+	#print("Dl: " + str(recvd), str(int(ratio)*100)+"%", "ETA: "+str(eta))
+
+```
 
 
 # requirements.txt:

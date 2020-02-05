@@ -53,9 +53,6 @@ def command_output(process):
 	return val, rc
 
 
-def terminal_dimensions():
-	return curses.initscr().getmaxyx()
-
 if __name__ == "__main__":
 	main()
 

@@ -4,6 +4,7 @@ import lib.spotq as sp
 from lib.TrackField import TrackList
 from lib.DetailField import DetailView
 from lib.QueueField import QueueList
+from lib.NotifyPopup import notifyr
 
 import time
 import subprocess
@@ -59,6 +60,10 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		self.Console_widget.log("event_add_queue called")
 		self.queue.append(self.parentApp.passinfo)
 		self.Queue_widget.assignvalues(self.queue)
+		#npyscreen.notify("Queued", title='Popup Title')
+		#npyscreen.notify_confirm("Queued", title='Popup Title', form_color='STANDOUT', editw = 5)
+		notifyr("Queued", title='Popup Title')
+		time.sleep(1) # needed to have it show up for a visible amount of time
 		#self.event_update_download_form("event")
 
 	def event_start_download(self, event):
@@ -71,7 +76,6 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		self.executecommand = "python3 spotdlRunner.py --song " + self.Queue_widget.info[0]['share'] + " --overwrite force --trim-silence"
 		#self.executecommand = "spotdl --song https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV"
 		#self.executecommand = "sudo ls -la npyscreen >&2 "
-		
 		
 		self.Console_widget.log(self.executecommand)
 		self.event_update_download_form("event")
@@ -86,7 +90,6 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		#self.Console_widget.display()
 		#self.Console_widget.log("Done Updating")
 		#self.display()			# Don't use this, it causes que list to blank until interacted
-		#
 
 	def ev_goback(self, event):
 		self.parentApp.switchFormPrevious()
@@ -153,3 +156,5 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 
 def terminal_dimensions():
 	return curses.initscr().getmaxyx()
+
+

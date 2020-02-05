@@ -20,13 +20,14 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 			#curses.ascii.NL: self.ev_selectsong,
 			"^R": self.ev_inputbox_clear,
 			"d": self.ev_download_song,
+			"q": self.ev_add_queue,
 			"^O": self.ev_selectsong,
 			"b": self.exit_func
 		}
 		self.add_handlers(new_handlers)
 
 		column_height = terminal_dimensions()[0] - 11
-		width = terminal_dimensions()[1] - 2
+		#width = terminal_dimensions()[1] - 2
 
 		self.SearchBox_widget = self.add(
 			SearchBox,
@@ -97,7 +98,7 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 		self.display()
 	
 	def ev_download_song(self, event):
-		self.ev_add_queue("event")
+		#self.ev_add_queue("event")
 		self.goto_download()
 
 	def ev_add_queue(self, event):
@@ -105,7 +106,7 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 		#time.sleep(1)
 		self.parentApp.passinfo = self.TrackList_widget.getSelectedSongInfo()
 		self.parentApp.queue_event(npyscreen.Event("event_add_queue"))
-		time.sleep(1)
+		#time.sleep(1)
 
 	def goto_download(self):
 		#self.parentApp.passinfo = self.TrackList_widget.getSelectedSongInfo()
