@@ -23,7 +23,8 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			#curses.ascii.alt(curses.ascii.NL): self.selectsong,
 			#curses.ascii.NL: self.selectsong,
 			#"^R": self.inputbox_clear,
-			"b": self.ev_goback
+			"b": self.ev_goback,
+			"d": self.event_start_download
 		}
 		self.add_handlers(new_handlers)
 		self.queue = []
@@ -51,20 +52,22 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			editable		 = False,
 			#footer			 = "Ctrl+D to download"
 		)
+		#self.keypress_timeout = 10
 		
 	def event_add_queue(self, event):
-		#if self.queue == None:
-		#	self.queue = []
+		self.Console_widget.log("event_add_queue called")
 		self.queue.append(self.parentApp.passinfo)
 		self.Queue_widget.assignvalues(self.queue)
 		#self.event_update_download_form("event")
 
 	def event_start_download(self, event):
+		self.Console_widget.log("event_start_download called")
+		self.Console_widget.log("Using: " + str(self.Queue_widget.values))
 		#self.Console_widget.name = self.parentApp.passinfo['name']
 		self.Console_widget.footer = self.parentApp.passinfo['name'] + " | Running"
 		
 		#self.executecommand = "python3 spotdlRunner.py --song 'https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' "
-		self.executecommand = "python3 spotdlRunner.py --song " + self.parentApp.passinfo['share'] + " --overwrite force --trim-silence"
+		self.executecommand = "python3 spotdlRunner.py --song " + self.Queue_widget.info[0]['share'] + " --overwrite force --trim-silence"
 		#self.executecommand = "spotdl --song https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV"
 		#self.executecommand = "sudo ls -la npyscreen >&2 "
 		
@@ -73,26 +76,25 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		self.event_update_download_form("event")
 
 	def event_update_download_form(self, event):
+		self.Console_widget.log("Updating Form...")
 		self.Queue_widget.update()
 		self.Console_widget.update()
-		self.Queue_widget.display()
-		self.Console_widget.display()
+		#self.Queue_widget.display()
+		#self.Console_widget.display()
 		self.display()
 
 	def ev_goback(self, event):
 		self.parentApp.switchFormPrevious()
 
 	def run_command(self, command):
+		self.Console_widget.log("Starting Process...")
 		process = subprocess.Popen(shlex.split(command), stderr=subprocess.PIPE, encoding='utf8')
 		# add stdout=subprocess.PIPE, for other commands
-		#process = str(a) + str(b)
-		#self.executedcommand = command
 		return process
 
 	def command_output(self, process):
 		output = process.stderr.readline() # process.stdout.readline()
 		#output = process.communicate()
-		#output = process.stdout
 		if output == '' and process.poll() is not None:
 			return None
 		if output:
@@ -102,9 +104,11 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 
 	def command_done(self):
 		self.Console_widget.footer = "Stopped"
+		#self.Console_widget.log("Done")
 		pass
 
 	def while_waiting(self):
+		#self.Console_widget.log("WhileWait Loop")
 		if hasattr(self, 'process'):
 			results = self.command_output(self.process)
 			if results != None:

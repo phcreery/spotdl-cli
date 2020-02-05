@@ -13,8 +13,8 @@ class ArtistTrackList(npyscreen.BoxTitle):
 		self.callback = value
 
 	def generateTrackList(self, values):
-		w = self.width + 2
-		space = int((w-16)/2)
+		w = self.width
+		space = int((w-10)/2)
 		newvalues = []
 		for song in values:
 			newvalue = self.tabafter(song['name'], space+5) + self.tabafter(song['otherartists'], space-4) + song['duration']

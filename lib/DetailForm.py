@@ -95,6 +95,7 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 		self.goto_download()
 
 	def ev_add_queue(self, event):
+		#self.parentApp.passinfo = self.TrackList_widget.getSelectedSongInfo()
 		self.parentApp.queue_event(npyscreen.Event("event_add_queue"))
 
 	def goto_download(self):

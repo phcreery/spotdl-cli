@@ -31,4 +31,3 @@ class DetailView(npyscreen.BoxTitle):
 		while len(valuelist) > h:
 			valuelist.pop(0)
 		self.value = '\n'.join(map(str, valuelist))
-

@@ -13,8 +13,8 @@ class QueueList(npyscreen.BoxTitle):
 		self.callback = value
 
 	def assignvalues(self, values):
-		h,w = terminal_dimensions()
-		space = int((w-16)/2)
+		w = self.width
+		space = int((w-10)/2)
 		newvalues = []
 		for song in values:
 			newvalue = self.tabafter(song['name'], space+5) + self.tabafter(song['artists'], space-5) + song['duration']
@@ -40,6 +40,3 @@ class QueueList(npyscreen.BoxTitle):
 			space = space + " "
 		return str(data) + space
 
-
-def terminal_dimensions():
-	return curses.initscr().getmaxyx()

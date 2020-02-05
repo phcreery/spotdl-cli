@@ -105,12 +105,12 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 		#time.sleep(1)
 		self.parentApp.passinfo = self.TrackList_widget.getSelectedSongInfo()
 		self.parentApp.queue_event(npyscreen.Event("event_add_queue"))
+		time.sleep(1)
 
 	def goto_download(self):
-		self.parentApp.passinfo = self.TrackList_widget.getSelectedSongInfo()
-		self.parentApp.queue_event(npyscreen.Event("event_start_download"))
+		#self.parentApp.passinfo = self.TrackList_widget.getSelectedSongInfo()
+		#self.parentApp.queue_event(npyscreen.Event("event_start_download"))
 		self.parentApp.setNextForm("DOWN")
-		#self.parentApp.setNextFormPrevious()
 		self.parentApp.switchForm("DOWN")	
 
 	def ev_selectsong(self, event):

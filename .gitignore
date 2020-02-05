@@ -130,3 +130,8 @@ poetry.lock
 .cache-phcreery
 pyproject.toml
 .replit
+
+
+# to start over:
+# git rm -rf --cached .
+# git add .

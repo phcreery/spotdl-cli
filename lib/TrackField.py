@@ -14,8 +14,8 @@ class TrackList(npyscreen.BoxTitle): #SelectOne, BoxTitle
 		self.callback = value
 
 	def generateTrackList(self, values):
-		w = self.width + 2
-		space = int((w-12)/2)
+		w = self.width
+		space = int((w-10)/2)
 		#space2 = int((w-12)/2)
 		newvalues = []
 		for song in values:

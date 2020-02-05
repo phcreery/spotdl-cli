@@ -1,5 +1,4 @@
 import npyscreen
-from lib.initForm import initForm
 from lib.SearchForm import SearchForm
 from lib.DetailForm import DetailForm
 from lib.DownloadForm import DownloadForm
