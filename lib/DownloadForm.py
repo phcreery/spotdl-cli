@@ -58,7 +58,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		self.isdownloading = False
 		
 	def event_add_queue(self, event):
-		self.Console_widget.log("event_add_queue called")
+		#self.Console_widget.log("event_add_queue called")
 		self.queue.append(self.parentApp.passinfo)
 		self.Queue_widget.assignvalues(self.queue)
 		#npyscreen.notify("Queued", title='Popup Title')
@@ -73,14 +73,14 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		if len(self.queue) > 0:
 			self.isdownloading = True
 		else:
-			notify("Unable to perform action", title='Warning')
+			notify("Queue is Empty", title='Warning')
 			time.sleep(2)
 			npyscreen.blank_terminal()
 			self.isdownloading = False
 			return
 
 		self.current_song = self.queue[0]
-		self.Console_widget.log("Using: " + str(self.current_song['name']))
+		self.Console_widget.log("Downloading: " + self.current_song['name'] + " by " + self.current_song['artists'])
 		#self.Console_widget.name = self.parentApp.passinfo['name']
 		self.Console_widget.footer = self.current_song['name'] + " | Running"
 		
@@ -134,12 +134,11 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 	def command_done(self):
 		self.Console_widget.footer = "Stopped"
 		delattr(self, 'process')
-		#self.Console_widget.log("Done")
+		self.Console_widget.log("Done")
 		pass
 
 	def while_waiting(self):
 		#self.Console_widget.log("WhileWait Loop")
-		#f hasattr(self, 'process'):
 		if self.isdownloading == True: 
 			self.download_handler()
 		if hasattr(self, 'process'):
@@ -149,9 +148,9 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			else:
 				self.command_done()
 
-		#self.event_update_download_form("event")
+		self.event_update_download_form("event")
 		#self.Queue_widget.update()
-		self.Console_widget.update()
+		#self.Console_widget.update()
 
 
 	def on_ok(self):
