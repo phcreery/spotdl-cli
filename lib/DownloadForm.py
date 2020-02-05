@@ -39,7 +39,8 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			max_height		 = int(column_height/2),
 			#value			 = "asdf",
 			editable		 = True,
-			#footer			 = "Ctrl+D to download"
+			scroll_exit		 = False,
+			footer			 = "D to download"
 		)
 
 		self.Console_widget = self.add(
@@ -71,17 +72,21 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		#self.executecommand = "spotdl --song https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV"
 		#self.executecommand = "sudo ls -la npyscreen >&2 "
 		
-		self.process = self.run_command(self.executecommand)
+		
 		self.Console_widget.log(self.executecommand)
 		self.event_update_download_form("event")
+		self.process = self.run_command(self.executecommand)
+		#self.while_waiting()
 
 	def event_update_download_form(self, event):
-		self.Console_widget.log("Updating Form...")
+		#self.Console_widget.log("Updating Form...")
 		self.Queue_widget.update()
 		self.Console_widget.update()
 		#self.Queue_widget.display()
 		#self.Console_widget.display()
-		self.display()
+		#self.Console_widget.log("Done Updating")
+		#self.display()			# Don't use this, it causes que list to blank until interacted
+		#
 
 	def ev_goback(self, event):
 		self.parentApp.switchFormPrevious()
@@ -120,7 +125,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 
 
 		#self.event_update_download_form("event")
-		self.Queue_widget.update()
+		#self.Queue_widget.update()
 		self.Console_widget.update()
 
 
