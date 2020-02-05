@@ -15,7 +15,7 @@ Thumbs.db
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.pyc
-*.py[cod]
+#*.py[cod]
 *$py.class
 
 # C extensions
@@ -29,7 +29,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+#lib/
 lib64/
 parts/
 sdist/
