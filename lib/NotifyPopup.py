@@ -1,22 +1,22 @@
 #import npyscreen
 import textwrap
 
-from npyscreen import fmPopup
+#from npyscreen import fmPopup
 from npyscreen import wgmultiline
-from npyscreen import fmPopup
 import curses
 
 from npyscreen import fmForm
-from npyscreen import fmActionFormV2
+#from npyscreen import fmActionFormV2
 
 class MyPopup(fmForm.Form):
-	DEFAULT_LINES	 = 2
+	h,w = curses.initscr().getmaxyx()
+	DEFAULT_LINES	 = 5
 	DEFAULT_COLUMNS	 = 20
-	SHOW_ATX		 = 40
-	SHOW_ATY		 = 4
+	SHOW_ATX		 = int( w/2 - DEFAULT_COLUMNS/2 )
+	SHOW_ATY		 = int( h/2 - DEFAULT_LINES/2 ) - 2
 
 
-def notifyr(message, title="Message", form_color='STANDOUT', 
+def notify(message, title="Message", form_color='STANDOUT', 
 			wrap=True, wide=False,
 			):
 	message = _prepare_message(message)
@@ -41,3 +41,5 @@ def _wrap_message_lines(message, line_length):
 	for line in message.split('\n'):
 		lines.extend(textwrap.wrap(line.rstrip(), line_length))
 	return lines
+
+

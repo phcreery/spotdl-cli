@@ -4,7 +4,7 @@ import lib.spotq as sp
 from lib.TrackField import TrackList
 from lib.DetailField import DetailView
 from lib.QueueField import QueueList
-from lib.NotifyPopup import notifyr
+from lib.NotifyPopup import notify
 
 import time
 import subprocess
@@ -62,7 +62,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		self.Queue_widget.assignvalues(self.queue)
 		#npyscreen.notify("Queued", title='Popup Title')
 		#npyscreen.notify_confirm("Queued", title='Popup Title', form_color='STANDOUT', editw = 5)
-		notifyr("Queued", title='Popup Title')
+		notify("Queued", title='Popup Title')
 		time.sleep(1) # needed to have it show up for a visible amount of time
 		#self.event_update_download_form("event")
 
