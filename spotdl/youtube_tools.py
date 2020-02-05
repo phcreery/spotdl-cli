@@ -180,13 +180,13 @@ def download_song(file_name, content):
         log.info("Downloading from URL: " + link.url)
         filepath = os.path.join(const.args.folder, file_name)
         log.info("Saving to: " + filepath)
-        link.download(filepath=filepath, quiet=True, callback=mycb)
+        link.download(filepath=filepath, quiet=True, callback=pafy_cb)
         return True
     else:
         log.info("No audio streams available")
         return False
 
-def mycb(total, recvd, ratio, rate, eta):
+def pafy_cb(total, recvd, ratio, rate, eta):
     #log.info("Dl: " + str(recvd), str(int(ratio)*100)+"%", "ETA: "+eta)
 	log.info(str(round(float(ratio)*100,2))+"%" + "  " + "Bytes: " + str(recvd))
 	#print("Dl: " + str(recvd), str(int(ratio)*100)+"%", "ETA: "+str(eta))

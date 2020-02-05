@@ -70,23 +70,37 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 
 	def event_start_download(self, event):
 		self.Console_widget.log("event_start_download called")
-		self.isdownloading = True
-		self.current_song = self.queue[0]
+		if len(self.queue) > 0:
+			self.isdownloading = True
+		else:
+			notify("Unable to perform action", title='Warning')
+			time.sleep(2)
+			npyscreen.blank_terminal()
+			self.isdownloading = False
+			return
 
-	def download_handler(self)
-		self.Console_widget.log("Using: " + str(self.Queue_widget.values))
+		self.current_song = self.queue[0]
+		self.Console_widget.log("Using: " + str(self.current_song['name']))
 		#self.Console_widget.name = self.parentApp.passinfo['name']
-		self.Console_widget.footer = self.parentApp.passinfo['name'] + " | Running"
+		self.Console_widget.footer = self.current_song['name'] + " | Running"
 		
-		#self.executecommand = "python3 spotdlRunner.py --song 'https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' "
-		self.executecommand = "python3 spotdlRunner.py --song " + self.Queue_widget.info[0]['share'] + " --overwrite force --trim-silence"
-		#self.executecommand = "spotdl --song https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV"
+		self.executecommand = "python3 spotdlRunner.py --song " + self.current_song['share'] + " --overwrite force --trim-silence"
+		#self.executecommand = "spotdl --song "
 		#self.executecommand = "sudo ls -la npyscreen >&2 "
 		
-		self.Console_widget.log(self.executecommand)
+		self.Console_widget.log(">_ " + self.executecommand)
 		self.event_update_download_form("event")
 		self.process = self.run_command(self.executecommand)
-		#self.while_waiting()
+
+
+	def download_handler(self):
+		if self.isdownloading == True and hasattr(self, 'process'):
+			pass
+		else:
+			self.queue.pop(0)
+			#self.que_next()
+			self.event_start_download("event")
+			
 
 	def event_update_download_form(self, event):
 		#self.Console_widget.log("Updating Form...")
@@ -94,7 +108,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		self.Queue_widget.update()
 		self.Console_widget.update()
 		#self.Queue_widget.display()
-		#self.Console_widget.display()
+		self.Console_widget.display()
 		#self.Console_widget.log("Done Updating")
 		#self.display()			# Don't use this, it causes que list to blank until interacted
 
@@ -119,13 +133,16 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 
 	def command_done(self):
 		self.Console_widget.footer = "Stopped"
+		delattr(self, 'process')
 		#self.Console_widget.log("Done")
 		pass
 
 	def while_waiting(self):
 		#self.Console_widget.log("WhileWait Loop")
 		#f hasattr(self, 'process'):
-		if self.isdownloading == True:
+		if self.isdownloading == True: 
+			self.download_handler()
+		if hasattr(self, 'process'):
 			results = self.command_output(self.process)
 			if results != None:
 				self.Console_widget.log(results)
