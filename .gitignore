@@ -123,3 +123,8 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# other
+poetry.lock
+.cache-phcreery
+pyproject.toml
