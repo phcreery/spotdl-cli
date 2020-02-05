@@ -366,8 +366,8 @@ big a given widget is ... use .height and .width instead"""
         my, mx = self.space_available()
         #my = my+1 # Probably want to remove this.
         ny, nx = self.calculate_area_needed()
-        #mx = mx-1  #phcreery Peytonc mod!
-        #my = my+1  # allows not padding on right & bottom
+        mx = mx+1  #phcreery Peytonc mod!
+        my = my+1  # allows not padding on right & bottom
         max_height = self.max_height
         max_width  = self.max_width
         # What to do if max_height or max_width is negative

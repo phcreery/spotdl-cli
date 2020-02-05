@@ -19,17 +19,17 @@ spotdl
 
 ## npyscreen:
 
-> wgwidget.py:
+### wgwidget.py:
 
 add
 ```
 368        mx = mx+1
 369        my = my+1
 ```
+removes padding on right & bottom
 
-
-> fmFooter.py:
-446 add:
+### fmFooter.py:
+Line: 446 add:
 ```
 class TitlelessForm(FormBaseNewExpanded):
     """A form without a box, just a title line"""
@@ -45,23 +45,28 @@ class TitlelessForm(FormBaseNewExpanded):
         #self.curses_pad.hline(0, 0, curses.ACS_HLINE, MAXX) 
         #self.draw_title_and_help()
 ```
+This creates a new from type without a border and title
 
 
-> __init__.py
-14 modify
+### __init__.py
+Line: 14 modify
 ```
 from   .fmForm                  import FormBaseNew, Form, TitleForm, TitleFooterForm, SplitForm, FormExpanded, FormBaseNewExpanded, blank_terminal, TitlelessForm
 ```
+Incluse my new form type
 
-> wgtextbox:
+### wgtextbox:
 
-250
+Line: 250 from
 ```
-from if not string_to_print or place_in_string > len(string_to_print)-1:
-to   if not string_to_print or place_in_string > len(string_to_print)-0:
+if not string_to_print or place_in_string > len(string_to_print)-1:
 ```
-47
-from
+to   
+```
+if not string_to_print or place_in_string > len(string_to_print)-0:
+```
+
+Line: 47 from
 ```
         if self.on_last_line:
             self.maximum_string_length = self.width - 2  # Leave room for the cursor
@@ -76,7 +81,7 @@ to
             self.maximum_string_length = self.width - 0  # Leave room for the cursor at the end of the string.
 ```
 
-
+Both of these allow for the list & text fields to be full width, leaving only 1 space to the right and 1 to the left
 
 
 

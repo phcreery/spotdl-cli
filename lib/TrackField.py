@@ -1,6 +1,6 @@
 import npyscreen
 import curses
-
+import math
 
 class TrackList(npyscreen.BoxTitle): #SelectOne, BoxTitle
 	#_contained_widget = npyscreen.BoxTitle
@@ -15,11 +15,13 @@ class TrackList(npyscreen.BoxTitle): #SelectOne, BoxTitle
 
 	def generateTrackList(self, values):
 		w = self.width
-		space = int((w-10)/2)
-		#space2 = int((w-12)/2)
+		#space = int((w-10)/2)
+		#space2 = space - int((w-10)/2)
+		space = math.ceil((w-10)/2)
+		space2 = math.floor((w-10)/2)
 		newvalues = []
 		for song in values:
-			newvalue = self.tabafter(song['name'], space+5) + self.tabafter(song['artists'], space-5) + song['duration']
+			newvalue = self.tabafter(song['name'], space+5) + self.tabafter(song['artists'], space2-5) + song['duration']
 			newvalues.append(newvalue)
 		self.values = newvalues
 		self.info = values
