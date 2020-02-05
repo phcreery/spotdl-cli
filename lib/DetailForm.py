@@ -18,7 +18,7 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 		new_handlers = {
 			curses.ascii.ctrl(curses.ascii.BS): self.exit_func,
 			"b": self.ev_goback,
-			"^D": self.ev_download_song,
+			"d": self.ev_download_song,
 			#"^Q": self.ev_add_queue,
 		}
 		self.add_handlers(new_handlers)

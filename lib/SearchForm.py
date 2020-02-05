@@ -19,7 +19,7 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 			curses.ascii.alt(curses.ascii.NL): self.exit_func,
 			#curses.ascii.NL: self.ev_selectsong,
 			"^R": self.ev_inputbox_clear,
-			"^D": self.ev_download_song,
+			"d": self.ev_download_song,
 			"^O": self.ev_selectsong,
 			"b": self.exit_func
 		}

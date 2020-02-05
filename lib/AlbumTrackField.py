@@ -13,7 +13,7 @@ class AlbumTrackList(npyscreen.BoxTitle):
 		self.callback = value
 
 	def generateTrackList(self, values):
-		h,w = terminal_dimensions()
+		x = self.width + 2
 		space = int((w-16)/2)
 		newvalues = []
 		for song in values:
@@ -37,7 +37,3 @@ class AlbumTrackList(npyscreen.BoxTitle):
 		for i in range(w - len(data)):
 			space = space + " "
 		return str(data) + space
-
-
-def terminal_dimensions():
-	return curses.initscr().getmaxyx()

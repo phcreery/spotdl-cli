@@ -15,18 +15,20 @@ class DetailView(npyscreen.BoxTitle):
 		self.value = dispinfo
 
 	def log(self, value):
-		h,w = terminal_dimensions()
+		#h,w = terminal_dimensions()
+		h = self.height - 1
+		w = self.width
 
 		valuelist = self.value.split('\n')
 
-		value = textwrap.wrap(value, w - 4)
-		valuelist.append(value)
-		#self.value = str(self.value) + str(value) + "\n"
-		
-		while len(valuelist) > h - 4:
-			valuelist.pop(0)
-		
-		self.value = '\n'.join([str(elem) for elem in valuelist]).strip('[]')
+		value = textwrap.fill(value, w)
+		self.value = self.value + str(value) + "\n"
 
-def terminal_dimensions():
-	return curses.initscr().getmaxyx()
+		#valuelist.append(value)
+		#self.value = str(self.value) + str(value) + "\n"
+
+		valuelist = self.value.split('\n')
+		while len(valuelist) > h:
+			valuelist.pop(0)
+		self.value = '\n'.join(map(str, valuelist))
+

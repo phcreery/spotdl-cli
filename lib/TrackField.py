@@ -14,7 +14,7 @@ class TrackList(npyscreen.BoxTitle): #SelectOne, BoxTitle
 		self.callback = value
 
 	def generateTrackList(self, values):
-		h,w = terminal_dimensions()
+		w = self.width + 2
 		space = int((w-12)/2)
 		#space2 = int((w-12)/2)
 		newvalues = []
@@ -40,6 +40,3 @@ class TrackList(npyscreen.BoxTitle): #SelectOne, BoxTitle
 			space = space + " "
 		return str(data) + space
 
-
-def terminal_dimensions():
-	return curses.initscr().getmaxyx()
