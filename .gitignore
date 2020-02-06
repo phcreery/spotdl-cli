@@ -130,7 +130,9 @@ poetry.lock
 .cache-phcreery
 pyproject.toml
 .replit
-.mp3
+*.mp3
+*.m4a
+*.m4a.part
 
 # to start over:
 # git rm -rf --cached .

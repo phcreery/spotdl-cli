@@ -93,7 +93,7 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 		pass		
 
 	def ev_download_song(self, event):
-		self.ev_add_queue("event")
+		#self.ev_add_queue("event")
 		self.goto_download()
 
 	def ev_add_queue(self, event):
@@ -106,7 +106,8 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 		passdata = []
 		for song in self.AlbumList_widget.info:
 			passdata.append(song)
-		self.parentApp.passinfo = passdata
+		#self.parentApp.passinfo = passdata[0]
+		self.parentApp.passinfo = self.AlbumList_widget.info
 		self.parentApp.queue_event(npyscreen.Event("event_add_queue"))
 
 	def goto_download(self):

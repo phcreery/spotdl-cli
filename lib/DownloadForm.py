@@ -10,6 +10,11 @@ import time
 import subprocess
 import shlex
 
+import pickle
+import json
+import os
+import signal
+
 class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionForm
 	
 	def create(self):
@@ -25,7 +30,8 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			#curses.ascii.NL: self.selectsong,
 			#"^R": self.inputbox_clear,
 			"b": self.ev_goback,
-			"d": self.event_start_download
+			"d": self.event_start_download,
+			"q": self.ev_stop_command,
 		}
 		self.add_handlers(new_handlers)
 		self.queue = []
@@ -41,7 +47,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			#value			 = "asdf",
 			editable		 = True,
 			scroll_exit		 = False,
-			footer			 = "[D]ownload"
+			footer			 = self.parentApp.save_location + " | [D]ownload"
 		)
 
 		self.Console_widget = self.add(
@@ -59,7 +65,14 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		
 	def event_add_queue(self, event):
 		#self.Console_widget.log("event_add_queue called")
-		self.queue.append(self.parentApp.passinfo)
+		#with open('some_file.txt', 'w') as f:
+		#	json.dump(self.parentApp.passinfo, f)
+
+		if isinstance(self.parentApp.passinfo, list): 
+			self.queue.extend(self.parentApp.passinfo)
+		else: 
+			self.queue.append(self.parentApp.passinfo)
+
 		self.Queue_widget.assignvalues(self.queue)
 		#npyscreen.notify("Queued", title='Popup Title')
 		#npyscreen.notify_confirm("Queued", title='Popup Title', form_color='STANDOUT', editw = 5)
@@ -85,13 +98,13 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		#self.Console_widget.name = self.parentApp.passinfo['name']
 		self.Console_widget.footer = self.current_song['name'] + " | Running"
 		
-		self.executecommand = "python3 spotdlRunner.py --song " + self.current_song['share'] + " --overwrite force --trim-silence"
-		#self.executecommand = "spotdl --song "
-		#self.executecommand = "sudo ls -la npyscreen >&2 "
+		executecommand = "python3 spotdlRunner.py --song " + self.current_song['share'] + " --overwrite force --trim-silence -f '" + self.parentApp.save_location + "'"
+		#executecommand = "spotdl --song "
+		#executecommand = "sudo ls -la npyscreen >&2 "
 		
-		self.Console_widget.log("> " + self.executecommand)
+		self.Console_widget.log("> " + executecommand)
 		self.event_update_download_form("event")
-		self.process = self.run_command(self.executecommand)
+		self.process = self.run_command(executecommand)
 
 
 	def download_handler(self):
@@ -121,6 +134,23 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		process = subprocess.Popen(shlex.split(command), stderr=subprocess.PIPE, encoding='utf8')
 		# add stdout=subprocess.PIPE, for other commands
 		return process
+
+	def ev_stop_command(self, event):
+		self.Console_widget.log("Killing Process...")
+		#self.process.kill()
+		pid = self.process.pid
+		self.process.terminate()
+		try:
+			os.kill(pid, 0)
+			self.process.kill()
+			self.Console_widget.log("Forced Kill")
+		except OSError:
+			self.Console_widget.log("Termianted Gracefully")
+
+		self.isdownloading = False
+		self.command_done()
+
+		#os.killpg(os.getpgid(self.process.pid), signal.SIGTERM)
 
 	def command_output(self, process):
 		output = process.stderr.readline() # process.stdout.readline()

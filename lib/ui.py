@@ -11,6 +11,7 @@ class App(npyscreen.StandardApp):	#StandardApp, NPSAppManaged, NPSApp
 
 	passinfo = {}
 	#curses.use_default_colors()
+	save_location = "/mnt/c/Users/phcre/Documents/Python/spoticli/queue/"
 
 	def onStart(self):
 		npyscreen.setTheme(MyTheme) 
