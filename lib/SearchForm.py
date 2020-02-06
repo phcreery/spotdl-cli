@@ -14,14 +14,14 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 		
 		new_handlers = {
 			# Set ctrl+Q to exit
-			#"^Q": self.ev_add_queue,
+			"^Q": self.ev_add_queue,
 			# Set alt+enter to clear boxes
 			curses.ascii.alt(curses.ascii.NL): self.exit_func,
 			#curses.ascii.NL: self.ev_selectsong,
 			"^R": self.ev_inputbox_clear,
 			"d": self.ev_download_song,
 			"q": self.ev_add_queue,
-			"^O": self.ev_selectsong,
+			"o": self.ev_selectsong,
 			"b": self.exit_func
 		}
 		self.add_handlers(new_handlers)
@@ -61,7 +61,7 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 			max_height		 = 6,
 			#value			 = "asdf",
 			editable		 = False,
-			footer			 = "Ctrl+D to download, Shift+Enter to open"
+			footer			 = "[Q]ueue | [D]ownloads [O]pen"
 		)
 		#self.edit()
 

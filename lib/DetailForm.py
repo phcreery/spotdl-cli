@@ -20,6 +20,7 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 			"b": self.ev_goback,
 			"d": self.ev_download_song,
 			"q": self.ev_add_queue,
+			"a": self.ev_queue_album,
 		}
 		self.add_handlers(new_handlers)
 
@@ -32,7 +33,8 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 			rely 			 = 1,
 			max_height 		 = 6,
 			#value			 = "asdf",
-			editable		 = False
+			editable		 = False,
+			footer			 = "[Q]ueue [A]lbum | [D]ownloads"
 		)
 		
 		self.AlbumList_widget = self.add(
@@ -100,11 +102,17 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 		#update(clear=True)
 		#self.event_update_detail_form("event")
 
+	def ev_queue_album(self, event):
+		passdata = []
+		for song in self.AlbumList_widget.info:
+			passdata.append(song)
+		self.parentApp.passinfo = passdata
+		self.parentApp.queue_event(npyscreen.Event("event_add_queue"))
+
 	def goto_download(self):
 		#self.parentApp.passinfo = self.TrackList_widget.getSelectedSongInfo()
 		#self.parentApp.queue_event(npyscreen.Event("event_start_download"))
 		self.parentApp.setNextForm("DOWN")
-		#self.parentApp.setNextFormPrevious()
 		self.parentApp.switchForm("DOWN")	
 
 	def exit_func(self, _input):

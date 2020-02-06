@@ -1,7 +1,7 @@
 import npyscreen
 import curses
-import lib.spotq as sp
-from lib.TrackField import TrackList
+#import lib.spotq as sp
+#from lib.TrackField import TrackList
 from lib.DetailField import DetailView
 from lib.QueueField import QueueList
 from lib.NotifyPopup import notify
@@ -41,7 +41,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			#value			 = "asdf",
 			editable		 = True,
 			scroll_exit		 = False,
-			footer			 = "D to download"
+			footer			 = "[D]ownload"
 		)
 
 		self.Console_widget = self.add(
@@ -70,6 +70,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 
 	def event_start_download(self, event):
 		self.Console_widget.log("event_start_download called")
+		self.Queue_widget.value = 0
 		if len(self.queue) > 0:
 			self.isdownloading = True
 		else:
@@ -88,7 +89,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		#self.executecommand = "spotdl --song "
 		#self.executecommand = "sudo ls -la npyscreen >&2 "
 		
-		self.Console_widget.log(">_ " + self.executecommand)
+		self.Console_widget.log("> " + self.executecommand)
 		self.event_update_download_form("event")
 		self.process = self.run_command(self.executecommand)
 
