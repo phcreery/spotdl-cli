@@ -2,6 +2,7 @@ import npyscreen
 from lib.SearchForm import SearchForm
 from lib.DetailForm import DetailForm
 from lib.DownloadForm import DownloadForm
+from lib.DirectoryForm import DirectoryForm
 import curses
 from lib.theme import MyTheme
 
@@ -20,6 +21,7 @@ class App(npyscreen.StandardApp):	#StandardApp, NPSAppManaged, NPSApp
 		self.mainform = self.addForm('MAIN', SearchForm)
 		self.detailform = self.addForm('SECOND', DetailForm)
 		self.dlform = self.addForm('DOWN', DownloadForm)
+		self.saveform = self.addForm('DIR', DirectoryForm)
 
 		
 	def change_form(self, name):
