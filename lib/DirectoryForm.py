@@ -1,26 +1,21 @@
 import npyscreen
 import curses
-#import lib.spotq as sp
-#from lib.TrackField import TrackList
 from lib.DetailField import DetailView
-from lib.QueueField import QueueList
+from lib.FolderField import FolderField
 from lib.NotifyPopup import notify
 
 import time
-import subprocess
-import shlex
 
 import pickle
 import json
 import os
-import signal
 
 class DirectoryForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionForm
 	
 	def create(self):
 		
 		self.add_event_hander("event_folder_select", self.event_folder_select)
-		#self.add_event_hander("event_start_download", self.event_start_download)
+		self.add_event_hander("event_update_directory_form", self.event_update_directory_form)
 		
 		new_handlers = {
 			# Set ctrl+Q to exit
@@ -30,8 +25,9 @@ class DirectoryForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFo
 			#curses.ascii.NL: self.selectsong,
 			#"^R": self.inputbox_clear,
 			"b": self.ev_goback,
-			"u": self.,
-			"s": self.,
+			"r": self.event_update_directory_form,
+			"u": self.ev_up_dir,
+			"s": self.ev_goback,
 		}
 		self.add_handlers(new_handlers)
 		
@@ -49,27 +45,48 @@ class DirectoryForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFo
 			#footer			 = "Ctrl+D to download"
 		)
 
+		self.folders = []
+		self.query_folders()
+
 		self.Folders_widget = self.add(
-			QueueList,
+			FolderField,
 			name			 = "FOLDERS",
 			relx			 = 2,
 			rely			 = 4,
-			max_height		 = column_height - 5,
-			#value			 = "asdf",
+			max_height		 = column_height - 3,
+			value			 = self.folders,
 			editable		 = True,
 			scroll_exit		 = False,
-			footer			 = "[U]p [S]elect"
+			footer			 = "[U]p [S]et"
 		)
-        self.Folders_widget.setEditCallback("event_folder_select")
-        self.folders = []
+		self.Folders_widget.setEditCallback("event_folder_select")
+		#self.folders = []
 
-    def event_folder_select(self, event):
-        pass
+	def event_folder_select(self, event):
+		self.parentApp.save_location = self.parentApp.save_location + self.Folders_widget.getSelectedInfo() + "/"
+		self.query_folders()
+		self.event_update_directory_form("event")
 
-    def event_update_download_form(self, event):
-        self.Queue_widget.assignvalues(self.folders)
+	def ev_up_dir(self, event):
+		self.parentApp.save_location = self.parentApp.save_location.rsplit('/', 2)[0] + "/"
+		with open('some_file.txt', 'w') as f:
+			json.dump(self.parentApp.save_location, f)
+		self.event_update_directory_form("event")
+
+
+	def query_folders(self):
+		self.folders = next(os.walk(self.parentApp.save_location))[1]
+		return self.folders
+
+
+	def event_update_directory_form(self, event):
+		self.query_folders()
+		self.Folders_widget.assignvalues(self.folders)
+		self.Directory_widget.value = self.parentApp.save_location
 		self.Directory_widget.update()
 		self.Folders_widget.update()
+		self.Directory_widget.display()
+		self.Folders_widget.display()
 
 	def ev_goback(self, event):
 		self.parentApp.switchFormPrevious()

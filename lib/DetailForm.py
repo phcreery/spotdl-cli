@@ -21,6 +21,7 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 			"d": self.ev_download_song,
 			"q": self.ev_add_queue,
 			"a": self.ev_queue_album,
+			"s": self.ev_browse_save,
 		}
 		self.add_handlers(new_handlers)
 
@@ -115,6 +116,11 @@ class DetailForm(npyscreen.FormBaseNewExpanded): #TitlelessForm, FormBaseNew
 		#self.parentApp.queue_event(npyscreen.Event("event_start_download"))
 		self.parentApp.setNextForm("DOWN")
 		self.parentApp.switchForm("DOWN")	
+
+	def ev_browse_save(self, event):
+		self.parentApp.queue_event(npyscreen.Event("event_update_directory_form"))
+		self.parentApp.setNextForm("DIR")
+		self.parentApp.switchForm("DIR")	
 
 	def exit_func(self, _input):
 		exit(0)

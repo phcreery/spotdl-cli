@@ -22,7 +22,8 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 			"d": self.ev_download_song,
 			"q": self.ev_add_queue,
 			"o": self.ev_selectsong,
-			"b": self.exit_func
+			"b": self.exit_func,
+			"s": self.ev_browse_save,
 		}
 		self.add_handlers(new_handlers)
 
@@ -120,6 +121,11 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 		self.parentApp.passinfo = self.TrackList_widget.getSelectedSongInfo()
 		self.parentApp.queue_event(npyscreen.Event("event_update_detail_form"))
 		self.parentApp.switchForm("SECOND")
+
+	def ev_browse_save(self, event):
+		self.parentApp.queue_event(npyscreen.Event("event_update_directory_form"))
+		self.parentApp.setNextForm("DIR")
+		self.parentApp.switchForm("DIR")	
 
 	"""
 	def while_waiting(self):

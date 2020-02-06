@@ -128,6 +128,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 	def event_update_download_form(self, event):
 		#self.Console_widget.log("Updating Form...")
 		self.Queue_widget.assignvalues(self.queue)
+		self.Queue_widget.footer = self.parentApp.save_location + " | [R]emove [D]ownload"
 		self.Queue_widget.update()
 		self.Console_widget.update()
 		#self.Queue_widget.display()
