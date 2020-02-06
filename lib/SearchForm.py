@@ -27,13 +27,13 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 		self.add_handlers(new_handlers)
 
 		column_height = terminal_dimensions()[0] - 11
-		#width = terminal_dimensions()[1] - 2
+		width = curses.initscr().getmaxyx()[1] - 2
 
 		self.SearchBox_widget = self.add(
 			SearchBox,
 			name			 = "SEARCH",
 			max_height 		 = 3,
-			#max_width 		 = width,
+			max_width 		 = width,
 			relx			 = 1,
 			#rely			 = 0,
 			value			 = "",
@@ -47,6 +47,7 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 			#relx			 = 2,
 			rely			 = 4,
 			max_height		 = column_height,
+			max_width 		 = width,
 			scroll_exit		 = True,
 			#value_changed_callback = self.event_song_select
 		)
@@ -59,6 +60,7 @@ class SearchForm(npyscreen.TitlelessForm):	#Form, FormBaseNew, ActionForm, Title
 			#relx			 = 2,
 			rely			 = column_height+4,
 			max_height		 = 6,
+			max_width 		 = width,
 			#value			 = "asdf",
 			editable		 = False,
 			footer			 = "[Q]ueue | [D]ownloads [O]pen"
