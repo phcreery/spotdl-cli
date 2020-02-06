@@ -91,7 +91,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			pass
 
 	def event_start_download(self, event):
-		self.Console_widget.log("event_start_download called")
+		#self.Console_widget.log("event_start_download called")
 		self.Queue_widget.value = 0
 		if len(self.queue) > 0:
 			self.isdownloading = True

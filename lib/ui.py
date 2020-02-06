@@ -12,7 +12,7 @@ class App(npyscreen.StandardApp):	#StandardApp, NPSAppManaged, NPSApp
 
 	passinfo = {}
 	#curses.use_default_colors()
-	save_location = "/mnt/c/Users/phcre/Documents/Python/spoticli/"
+	save_location = "/mnt/c/Users/phcre/Music"
 
 	def onStart(self):
 		npyscreen.setTheme(MyTheme) 
