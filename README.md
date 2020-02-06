@@ -4,7 +4,7 @@
 
 ## About
 
-this is a Terminal/Command-line User Interface for (ritiek/spotify-downloader)[https://github.com/ritiek/spotify-downloader] that is inspired by (Rigellute/spotify-tui)[https://github.com/Rigellute/spotify-tui]
+this is a Terminal/Command-line User Interface for [ritiek/spotify-downloader](https://github.com/ritiek/spotify-downloader) that is inspired by [Rigellute/spotify-tui](https://github.com/Rigellute/spotify-tui)
 ![Screenshot](/imgs/screenshot-1.png)
 
 ## Use
