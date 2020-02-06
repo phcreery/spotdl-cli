@@ -15,11 +15,11 @@ python3 main.py
 
 ### Navigation
 
-`o` Open Details Pane
-`q` Que Selected Song / Stop Download
-`d` Goto download form
-`s` Set Download Location
-`b` Go Back
+ * `o` Open Details Pane
+ * `q` Que Selected Song / Stop Download
+ * `d` Goto download form
+ * `s` Set Download Location
+ * `b` Go Back
 
 
 
