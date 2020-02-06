@@ -32,6 +32,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			"b": self.ev_goback,
 			"d": self.event_start_download,
 			"q": self.ev_stop_command,
+			"r": self.ev_remove_from_queue,
 		}
 		self.add_handlers(new_handlers)
 		self.queue = []
@@ -47,7 +48,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			#value			 = "asdf",
 			editable		 = True,
 			scroll_exit		 = False,
-			footer			 = self.parentApp.save_location + " | [D]ownload"
+			footer			 = self.parentApp.save_location + " | [R]emove [D]ownload"
 		)
 
 		self.Console_widget = self.add(
@@ -80,6 +81,14 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		time.sleep(0.5) # needed to have it show up for a visible amount of time
 		npyscreen.blank_terminal()	# needed to cleat notify form residue
 		#self.event_update_download_form("event")
+
+	def ev_remove_from_queue(self, event):
+		#self..pop(key[,d])
+		try:
+			self.queue.pop(self.Queue_widget.value)
+			self.Queue_widget.assignvalues(self.queue)
+		except:
+			pass
 
 	def event_start_download(self, event):
 		self.Console_widget.log("event_start_download called")
@@ -125,9 +134,6 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		self.Console_widget.display()
 		#self.Console_widget.log("Done Updating")
 		#self.display()			# Don't use this, it causes que list to blank until interacted
-
-	def ev_goback(self, event):
-		self.parentApp.switchFormPrevious()
 
 	def run_command(self, command):
 		self.Console_widget.log("Starting Process...")
@@ -183,6 +189,8 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		#self.Queue_widget.update()
 		#self.Console_widget.update()
 
+	def ev_goback(self, event):
+		self.parentApp.switchFormPrevious()
 
 	def on_ok(self):
 		self.parentApp.switchFormPrevious()
