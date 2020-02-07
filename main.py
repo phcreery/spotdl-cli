@@ -8,8 +8,10 @@ import subprocess
 import shlex
 import os
 import requests
-import vlc
-
+#import vlc
+import glob
+import time
+#import json
 
 #from spotdl.spotdl import dlr
 
@@ -23,7 +25,7 @@ def main():
 	#pprint.pprint(results)
 	#mytracks()
 
-	"""
+	'''
 	cmd = run_command("python3 spotdlRunner.py --song 'https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' --overwrite force --trim-silence")
 	while True:	
 		output, rc = command_output(cmd)
@@ -31,8 +33,7 @@ def main():
 			break
 		else:
 			print(output, rc)
-	"""
-
+	'''
 	#print(os.getcwd())
 	#download_spotify_track('this feeling')
 
@@ -40,7 +41,18 @@ def main():
 	#p = vlc.MediaPlayer("file:///mnt/c/Users/phcre/Documents/Python/spoticli/track.mp3")
 	#p.play()
 
-	
+	'''
+	songlist = glob.glob("/mnt/c/Users/phcre/Music/*.mp3")
+	songs = ""
+	for song in songlist:
+		songs = songs + song.rsplit('.', 1)[0].rsplit('/', 1)[1] + "\n"
+	print(songs)
+	with open('some_file.txt', 'w') as f:
+		f.write(songs)
+		#json.dump(songs, f)
+	time.sleep(1)
+	'''
+
 	app = App()
 	app.run()
 
@@ -74,4 +86,5 @@ def command_output(process):
 
 if __name__ == "__main__":
 	main()
+	exit()
 
