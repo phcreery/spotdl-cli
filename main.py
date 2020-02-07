@@ -7,6 +7,9 @@ from lib.spotq import download_spotify_track
 import subprocess
 import shlex
 import os
+import requests
+import vlc
+
 
 #from spotdl.spotdl import dlr
 
@@ -33,9 +36,25 @@ def main():
 	#print(os.getcwd())
 	#download_spotify_track('this feeling')
 
+	#DownloadFile("https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86")
+	#p = vlc.MediaPlayer("file:///mnt/c/Users/phcre/Documents/Python/spoticli/track.mp3")
+	#p.play()
+
+	
 	app = App()
 	app.run()
 
+
+
+def DownloadFile(url):
+	local_filename = url.split('/')[-1]
+	r = requests.get(url)
+	f = open(local_filename, 'wb')
+	for chunk in r.iter_content(chunk_size=512 * 1024): 
+		if chunk: # filter out keep-alive new chunks
+			f.write(chunk)
+	f.close()
+	return 
 
 def run_command(command):
 	#process = subprocess.Popen(shlex.split(command), stdout=subprocess.PIPE, encoding='utf8')

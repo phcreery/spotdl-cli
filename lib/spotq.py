@@ -113,7 +113,9 @@ def generateTrackList(tracks):
 			"duration": 	formatDuration(track['duration_ms']),
 			"album": 		track['album']['name'],
 			"tracknumber":	str(track['track_number']).zfill(2),
-			"popularity":	str(track['popularity'])
+			"popularity":	str(track['popularity']),
+			"preview_url":	track['preview_url'],
+			"album_image":	track['album']['images'][0]['url']
 		})
 	return resultlist
 
