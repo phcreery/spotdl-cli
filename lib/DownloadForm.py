@@ -33,6 +33,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			"d": self.event_start_download,
 			"q": self.ev_stop_command,
 			"r": self.ev_remove_from_queue,
+			"s": self.ev_browse_save,
 		}
 		self.add_handlers(new_handlers)
 		self.queue = []
@@ -48,7 +49,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 			#value			 = "asdf",
 			editable		 = True,
 			scroll_exit		 = False,
-			footer			 = self.parentApp.save_location + " | [R]emove [D]ownload"
+			footer			 = self.parentApp.save_location + " [S]et | [R]emove [D]ownload"
 		)
 
 		self.Console_widget = self.add(
@@ -128,7 +129,7 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 	def event_update_download_form(self, event):
 		#self.Console_widget.log("Updating Form...")
 		self.Queue_widget.assignvalues(self.queue)
-		self.Queue_widget.footer = self.parentApp.save_location + " | [R]emove [D]ownload"
+		self.Queue_widget.footer = self.parentApp.save_location + " [S]et | [R]emove [D]ownload"
 		self.Queue_widget.update()
 		self.Console_widget.update()
 		#self.Queue_widget.display()
@@ -189,6 +190,11 @@ class DownloadForm(npyscreen.FormBaseNewExpanded):	#Form, FormBaseNew, ActionFor
 		self.event_update_download_form("event")
 		#self.Queue_widget.update()
 		#self.Console_widget.update()
+
+	def ev_browse_save(self, event):
+		self.parentApp.queue_event(npyscreen.Event("event_update_directory_form"))
+		self.parentApp.setNextForm("DIR")
+		self.parentApp.switchForm("DIR")	
 
 	def ev_goback(self, event):
 		self.parentApp.switchFormPrevious()
