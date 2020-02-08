@@ -52,7 +52,7 @@ class MyTheme(npyscreen.ThemeManager):
 		'DEFAULT'    : 'WHITE_ON_DEFAULT', # Text Color
 		'FORMDEFAULT' : 'WHITE_ON_DEFAULT', # Border Color for completed form
 		'NO_EDIT'    : 'BLACK_ON_DEFAULT',
-		'STANDOUT'  : 'GREEN_ON_DEFAULT', # Popup
+		'STANDOUT'  : 'RED_ON_DEFAULT', # Popup
 		'CURSOR'      : 'BLACK_ON_DEFAULT',
 		'CURSOR_INVERSE': 'BLACK_ON_DEFAULT',
 		'LABEL'    : 'BLACK_ON_DEFAULT', # Header and Footer
