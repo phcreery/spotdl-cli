@@ -8,16 +8,25 @@ import subprocess
 import shlex
 import os
 import requests
-#import vlc
+import vlc
 import glob
 import time
-#import json
+import json
 
 #from spotdl.spotdl import dlr
 
 #npyscreen.disableColor()
 
 def main():
+	#test_spotq()
+	#test_cmd()
+	#export_songlist()
+
+	app = App()
+	app.run()
+
+
+def test_spotq():
 	#results = sp.searchtrack("Roses SoMo")
 	#results = sp.searchtrackbyartist("SoMo")
 	#results = sp.searchtrackbyAlbum("Ride", "SoMo")
@@ -25,7 +34,15 @@ def main():
 	#pprint.pprint(results)
 	#mytracks()
 
-	'''
+	#print(os.getcwd())
+	#download_spotify_track('this feeling')
+
+	DownloadFile("https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86")
+	p = vlc.MediaPlayer("file:///mnt/c/Users/phcre/Documents/Python/spoticli/track.mp3")
+	p.play()
+
+
+def test_cmd():
 	cmd = run_command("python3 spotdlRunner.py --song 'https://open.spotify.com/track/3PP9CXeE0PYaM5GIGQqBIV' --overwrite force --trim-silence")
 	while True:	
 		output, rc = command_output(cmd)
@@ -33,16 +50,11 @@ def main():
 			break
 		else:
 			print(output, rc)
-	'''
-	#print(os.getcwd())
-	#download_spotify_track('this feeling')
 
-	#DownloadFile("https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86")
-	#p = vlc.MediaPlayer("file:///mnt/c/Users/phcre/Documents/Python/spoticli/track.mp3")
-	#p.play()
 
-	'''
-	songlist = glob.glob("/mnt/c/Users/phcre/Music/*.mp3")
+
+def export_songlist():
+	songlist = glob.glob("/mnt/c/Users/phcre/Music/old/*.mp3")
 	songs = ""
 	for song in songlist:
 		songs = songs + song.rsplit('.', 1)[0].rsplit('/', 1)[1] + "\n"
@@ -51,10 +63,6 @@ def main():
 		f.write(songs)
 		#json.dump(songs, f)
 	time.sleep(1)
-	'''
-
-	app = App()
-	app.run()
 
 
 
