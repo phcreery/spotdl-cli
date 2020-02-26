@@ -3,7 +3,6 @@ import lib.spotq as sp
 import pprint
 from lib.spotq import download_spotify_track
 
-
 import subprocess
 import shlex
 import os
@@ -63,7 +62,6 @@ def export_songlist():
 		f.write(songs)
 		#json.dump(songs, f)
 	time.sleep(1)
-
 
 
 def DownloadFile(url):
